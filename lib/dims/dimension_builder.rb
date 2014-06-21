@@ -27,8 +27,9 @@ module Dims
     def build_default_conversion(name, conversion)
       class_name = get_dimension_class_name(name)
 
-      build_conversion(name) do
-        Dims.const_get(class_name).new(instance_eval(&conversion))
+      build_conversion(name) do |precision = nil|
+        precision ||= self.precision
+        Dims.const_get(class_name).new(instance_eval(&conversion), precision)
       end
     end
 
@@ -43,10 +44,16 @@ module Dims
       @dimension_class.instance_variable_set(:@dimension_name, @name.to_s)
       @dimension_class.instance_variable_set(:@abbrev,         @options[:abbrev])
 
-      instance_eval(&@def_block)
+      instance_eval(&@def_block) unless @def_block.nil?
 
-      # Return self when converting to same dimension
-      build_conversion(@name) { self }
+      # Return self when converting to same dimension unless changing precision
+      build_conversion(@name) do |precision = nil|
+        if precision.nil? || precision == self.precision
+          self
+        else
+          self.class.new(value, precision)
+        end
+      end
     end
 
     class ValueProxy
