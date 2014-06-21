@@ -12,13 +12,12 @@ module Dims
       builder = DimensionBuilder.new(name, options, &block)
 
       if const_defined?(builder.dimension_class_name)
-        raise "Already have class #{builder.dimension_class_name}"
+        raise NameError, "Already defined dimension class `#{builder.dimension_class_name}`"
       end
 
       const_set(builder.dimension_class_name, builder.dimension_class)
-      builder.dimension_class
-
       CoreExt.add_numeric_dimension(name, builder.dimension_class_name, builder.dimension_class.abbrev)
+      builder.dimension_class
     end
 
     def configure
