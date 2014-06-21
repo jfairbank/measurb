@@ -12,11 +12,6 @@ module Dims
       @value          = fix_value(value, precision)
     end
 
-    def value
-      modifier = (10 ** @precision).to_f
-      (@value * modifier).round / modifier
-    end
-
     # Define arithmetic operations
     %w(+ -).each do |op|
       class_eval <<-EOS, __FILE__, __LINE__ + 1
