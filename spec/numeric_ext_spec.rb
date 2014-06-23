@@ -14,12 +14,28 @@ describe Numeric do
       end
     end
 
+    shared_context 'having correct precision' do |n|
+      it 'sets default precision without an argument' do
+        expect(n.inches).to have_precision(Dims::DEFAULT_PRECISION)
+      end
+
+      it 'sets the supplied precision' do
+        expect(n.inches(2)).to have_precision(2)
+      end
+    end
+
     context 'with integer value' do
-      include_context 'returning expected', 42
+      n = 42
+
+      include_context 'returning expected', n
+      include_context 'having correct precision', n
     end
 
     context 'with float value' do
-      include_context 'returning expected', 3.14
+      n = Math::PI
+
+      include_context 'returning expected', n
+      include_context 'having correct precision', n
     end
   end
 end
