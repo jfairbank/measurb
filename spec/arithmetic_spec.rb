@@ -29,6 +29,15 @@ describe Dims::Dimension do
       expect(feet   + feet).to   have_value(10)
       expect(feet   + inches).to have_value(7)
     end
+
+    it 'respects the smallest precision' do
+      x = Math::PI.inches(4)
+      y = 2.001.inches(3)
+      sum = x + y
+
+      expect(sum).to have_precision(3)
+      expect(sum).to have_value(5.143)
+    end
   end
 
   context 'when subtracting' do
@@ -44,6 +53,15 @@ describe Dims::Dimension do
       expect(inches - feet).to   have_value(-36)
       expect(feet   - feet).to   have_value(0)
       expect(feet   - inches).to have_value(3)
+    end
+
+    it 'respects the smallest precision' do
+      x = Math::PI.inches(4)
+      y = 2.001.inches(3)
+      difference = x - y
+
+      expect(difference).to have_precision(3)
+      expect(difference).to have_value(1.141)
     end
   end
 end
