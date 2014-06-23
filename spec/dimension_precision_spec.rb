@@ -13,8 +13,8 @@ describe Dims::Dimension do
       end
     end
 
-    let(:default_precision)  { 2 }
-    let(:supplied_precision) { 3 }
+    let(:default_precision)  { Dims::DEFAULT_PRECISION }
+    let(:supplied_precision) { 2 }
 
     let(:int)             { Dims::Inches.new(42) }
     let(:int_precision)   { Dims::Inches.new(42, supplied_precision) }
@@ -35,8 +35,18 @@ describe Dims::Dimension do
       it 'sets the value based on the precision' do
         expect(int).to       have_value(42.0)
         expect(int).to       have_value(42)
-        expect(float).to     have_value(3.14)
+        expect(float).to     have_value(3.142)
         expect(float).to_not have_value(Math::PI)
+      end
+
+      it 'rounds floats correctly' do
+        float1 = Dims::Inches.new(1.2346)
+        float2 = Dims::Inches.new(1.2344)
+        float3 = Dims::Inches.new(1.2345)
+
+        expect(float1).to have_value(1.235)
+        expect(float2).to have_value(1.234)
+        expect(float3).to have_value(1.235)
       end
     end
 
@@ -54,13 +64,20 @@ describe Dims::Dimension do
       it 'sets the value based on the precision' do
         expect(int_precision).to       have_value(42.0)
         expect(int_precision).to       have_value(42)
-        expect(float_precision).to     have_value(3.142)
-        expect(float_precision).to_not have_value(3.14)
+        expect(float_precision).to     have_value(3.14)
+        expect(float_precision).to_not have_value(3.1)
         expect(float_precision).to_not have_value(Math::PI)
       end
-    end
 
-    pending 'handle conversions with supplied precisions'
-    pending 'handle arithmetic with least significant precision'
+      it 'rounds floats correctly' do
+        float1 = Dims::Inches.new(1.237, supplied_precision)
+        float2 = Dims::Inches.new(1.232, supplied_precision)
+        float3 = Dims::Inches.new(1.235, supplied_precision)
+
+        expect(float1).to have_value(1.24)
+        expect(float2).to have_value(1.23)
+        expect(float3).to have_value(1.24)
+      end
+    end
   end
 end
