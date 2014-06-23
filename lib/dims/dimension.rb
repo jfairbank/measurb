@@ -16,7 +16,9 @@ module Dims
     %w(+ -).each do |op|
       class_eval <<-EOS, __FILE__, __LINE__ + 1
         def #{op}(other)
-          self.class.new(value #{op} to_self(other).value)
+          least_precision = [precision, other.precision].min
+          new_value = value.#{op}(to_self(other).value)
+          self.class.new(new_value, least_precision)
         end
       EOS
     end
