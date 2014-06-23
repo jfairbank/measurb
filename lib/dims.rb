@@ -5,7 +5,7 @@ require 'dims/dimension'
 require 'dims/dimension_builder'
 
 module Dims
-  DEFAULT_PRECISION = 2
+  DEFAULT_PRECISION = 3
 
   class << self
     def define(name, options = {}, &block)
