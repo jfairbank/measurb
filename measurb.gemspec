@@ -9,11 +9,10 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Jeremy Fairbank']
   spec.email         = ['elpapapollo@gmail.com']
   spec.summary       = %q{Handle units of measurement}
-  spec.description   = %q{Handle units of measurement}
-  spec.homepage      = ''
+  spec.description   = %q{Handle units of measurement in your Ruby applications.}
+  spec.homepage      = 'https://github.com/jfairbank/measurb'
   spec.license       = 'MIT'
 
-  #spec.files         = `git ls-files -z`.split('\x0')
   spec.files         = `git ls-files`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
