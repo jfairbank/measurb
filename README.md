@@ -2,6 +2,9 @@
 
 Handle units of measurment with ease! Measurb is a Ruby library for creating and managing units of measurements, or dimensions. Create your own units and define how to convert amongst them. Measurb also comes with a few default dimensions: inches, feet, and yards, but you don't have to use them. Measurb takes care of the tediousness of adding, subtracting, and comparing different measurements, especially between different units of measurement.
 
+## Build Status
+[![Build Status](https://travis-ci.org/jfairbank/measurb.svg?branch=master)](https://travis-ci.org/jfairbank/measurb)
+
 ## Installation
 
 Add this line to your application's Gemfile:
