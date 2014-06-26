@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe Dims::Dimension do
+describe Measurb::Dimension do
   before :context do
     clear_defined_inches
     clear_defined_feet
     remove_loaded_default_dimensions
 
-    Dims.configure do |config|
+    Measurb.configure do |config|
       config.enable_defaults :inches, :feet
     end
   end
@@ -48,6 +48,23 @@ describe Dims::Dimension do
     it 'handles inequality with another dimension class correctly' do
       expect(24.inches != 2.feet).to  be(false)
       expect(2.inches  != 24.feet).to be(true)
+    end
+  end
+
+  describe '#eql?' do
+    it 'recognizes equality with itself' do
+      n = 42.inches
+      expect(n).to eql(n)
+      expect(n).to be(n)
+    end
+
+    it 'recognizes equality only with dimensions of the same class and value' do
+      n = 24.inches
+
+      expect(n).to     eql(24.inches)
+      expect(n).to_not eql(2.feet)
+      expect(n).to_not eql(3.feet)
+      expect(n).to_not eql(36.inches)
     end
   end
 end
