@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe Dims::Dimension do
+describe Measurb::Dimension do
   before :context do
     clear_defined_inches
     clear_defined_feet
     clear_defined_yards
     remove_loaded_default_dimensions
 
-    Dims.configure do |config|
+    Measurb.configure do |config|
       config.enable_defaults :inches, :feet
     end
   end
@@ -17,10 +17,10 @@ describe Dims::Dimension do
 
   context 'when adding' do
     it 'returns the left hand side class' do
-      expect(inches + inches).to be_a(Dims::Inches)
-      expect(inches + feet).to   be_a(Dims::Inches)
-      expect(feet   + feet).to   be_a(Dims::Feet)
-      expect(feet   + inches).to be_a(Dims::Feet)
+      expect(inches + inches).to be_a(Measurb::Inches)
+      expect(inches + feet).to   be_a(Measurb::Inches)
+      expect(feet   + feet).to   be_a(Measurb::Feet)
+      expect(feet   + inches).to be_a(Measurb::Feet)
     end
 
     it 'adds correctly' do
@@ -42,10 +42,10 @@ describe Dims::Dimension do
 
   context 'when subtracting' do
     it 'returns the left hand side class' do
-      expect(inches - inches).to be_a(Dims::Inches)
-      expect(inches - feet).to   be_a(Dims::Inches)
-      expect(feet   - feet).to   be_a(Dims::Feet)
-      expect(feet   - inches).to be_a(Dims::Feet)
+      expect(inches - inches).to be_a(Measurb::Inches)
+      expect(inches - feet).to   be_a(Measurb::Inches)
+      expect(feet   - feet).to   be_a(Measurb::Feet)
+      expect(feet   - inches).to be_a(Measurb::Feet)
     end
 
     it 'subtracts correctly' do
