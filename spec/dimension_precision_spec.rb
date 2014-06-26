@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Dims::Dimension do
+describe Measurb::Dimension do
   describe '.new' do
     before :context do
       clear_defined_inches
@@ -8,18 +8,18 @@ describe Dims::Dimension do
       clear_defined_yards
       remove_loaded_default_dimensions
 
-      Dims.configure do |config|
+      Measurb.configure do |config|
         config.enable_defaults :inches, :feet
       end
     end
 
-    let(:default_precision)  { Dims::DEFAULT_PRECISION }
+    let(:default_precision)  { Measurb::DEFAULT_PRECISION }
     let(:supplied_precision) { 2 }
 
-    let(:int)             { Dims::Inches.new(42) }
-    let(:int_precision)   { Dims::Inches.new(42, supplied_precision) }
-    let(:float)           { Dims::Inches.new(Math::PI) }
-    let(:float_precision) { Dims::Inches.new(Math::PI, supplied_precision) }
+    let(:int)             { Measurb::Inches.new(42) }
+    let(:int_precision)   { Measurb::Inches.new(42, supplied_precision) }
+    let(:float)           { Measurb::Inches.new(Math::PI) }
+    let(:float_precision) { Measurb::Inches.new(Math::PI, supplied_precision) }
 
     context 'without precision supplied' do
       it 'uses the default precision' do
@@ -40,9 +40,9 @@ describe Dims::Dimension do
       end
 
       it 'rounds floats correctly' do
-        float1 = Dims::Inches.new(1.2346)
-        float2 = Dims::Inches.new(1.2344)
-        float3 = Dims::Inches.new(1.2345)
+        float1 = Measurb::Inches.new(1.2346)
+        float2 = Measurb::Inches.new(1.2344)
+        float3 = Measurb::Inches.new(1.2345)
 
         expect(float1).to have_value(1.235)
         expect(float2).to have_value(1.234)
@@ -70,9 +70,9 @@ describe Dims::Dimension do
       end
 
       it 'rounds floats correctly' do
-        float1 = Dims::Inches.new(1.237, supplied_precision)
-        float2 = Dims::Inches.new(1.232, supplied_precision)
-        float3 = Dims::Inches.new(1.235, supplied_precision)
+        float1 = Measurb::Inches.new(1.237, supplied_precision)
+        float2 = Measurb::Inches.new(1.232, supplied_precision)
+        float3 = Measurb::Inches.new(1.235, supplied_precision)
 
         expect(float1).to have_value(1.24)
         expect(float2).to have_value(1.23)
