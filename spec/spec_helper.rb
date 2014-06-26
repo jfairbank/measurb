@@ -1,8 +1,23 @@
-require 'dims'
+require 'measurb'
 require 'helpers/matchers'
 require 'helpers/clear_dimensions'
 
 RSpec.configure do |config|
+  # Silence output
+  original_stderr = $stderr
+  original_stdout = $stdout
+  dummy_io = StringIO.new
+
+  config.before :context do
+    $stderr = dummy_io
+    $stdout = dummy_io
+  end
+
+  config.after :context do
+    $stderr = original_stderr
+    $stdout = original_stdout
+  end
+
   # These two settings work together to allow you to limit a spec run
   # to individual examples or groups you care about by tagging them with
   # `:focus` metadata. When nothing is tagged with `:focus`, all examples
