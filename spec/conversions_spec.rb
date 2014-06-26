@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe Dims do
+describe Measurb do
   describe '.define' do
     shared_context 'defines own conversion' do |with_abbrev = false|
       it 'defines own conversion' do
-        expect(Dims::Inches).to have_method(:to_inches)
+        expect(Measurb::Inches).to have_method(:to_inches)
       end
 
       it 'returns itself' do
@@ -16,13 +16,13 @@ describe Dims do
     context 'without define block' do
       before :example do
         clear_defined_inches
-        Dims.define(:inches)
+        Measurb.define(:inches)
       end
 
       include_context 'defines own conversion'
 
       it "doesn't have other conversions" do
-        expect(Dims::Inches).to_not have_method(:to_feet)
+        expect(Measurb::Inches).to_not have_method(:to_feet)
       end
     end
 
@@ -31,20 +31,20 @@ describe Dims do
         clear_defined_inches
         clear_defined_feet
 
-        Dims.define(:inches) { feet value / 12.0 }
-        Dims.define(:feet)
+        Measurb.define(:inches) { feet value / 12.0 }
+        Measurb.define(:feet)
       end
 
       include_context 'defines own conversion'
 
       it 'adds the `to_feet` conversion' do
-        expect(Dims::Inches).to have_method(:to_feet)
+        expect(Measurb::Inches).to have_method(:to_feet)
       end
 
-      it 'returns an instance of `Dims::Feet` with the correct value' do
+      it 'returns an instance of `Measurb::Feet` with the correct value' do
         n = 24.inches
 
-        expect(n.to_feet).to be_a(Dims::Feet)
+        expect(n.to_feet).to be_a(Measurb::Feet)
         expect(n.to_feet).to eq(2.feet)
       end
     end
